@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int main() {
+    char opcao;
+    int i;
+    float medidas[10][3]; // Matriz para armazenar as 10 medidas de 3 valores cada
+    float media_grupos[10]; // Array para armazenar a média de cada grupo
+    float soma_medio_total = 0.0;
+
+    do {
+        // Coleta de dados
+        for (i = 0; i < 10; i++) {
+            printf("Digite as 3 medidas de pressão para o grupo %d:\n", i + 1);
+            for (int j = 0; j < 3; j++) {
+                printf("Medida %d: ", j + 1);
+                scanf("%f", &medidas[i][j]);
+            }
+        }
+
+        // Cálculo das médias dos grupos
+        for (i = 0; i < 10; i++) {
+            float soma = 0.0;
+            for (int j = 0; j < 3; j++) {
+                soma += medidas[i][j];
+            }
+            media_grupos[i] = soma / 3;
+        }
+
+        // Exibição das médias de cada grupo e cálculo da média total
+        printf("\nMédias dos grupos:\n");
+        soma_medio_total = 0.0;
+        for (i = 0; i < 10; i++) {
+            printf("Média do grupo %d: %.2f\n", i + 1, media_grupos[i]);
+            soma_medio_total += media_grupos[i];
+        }
+
+        // Cálculo e exibição da média total das médias dos grupos
+        float media_total = soma_medio_total / 10;
+        printf("Média total das médias dos grupos: %.2f\n", media_total);
+
+        // Pergunta se o usuário deseja continuar
+        printf("\nDeseja repetir o processo? (s/n): ");
+        scanf(" %c", &opcao);
+
+    } while (opcao == 's' || opcao == 'S');
+
+    printf("Programa encerrado.\n");
+    return 0;
+}
