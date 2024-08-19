@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <math.h>
+
+// Função para calcular e exibir a concavidade da curva
+void verificarConcavidade(float a) {
+    if (a > 0) {
+        printf("Concavidade: A curva é voltada para cima.\n");
+    } else if (a < 0) {
+        printf("Concavidade: A curva é voltada para baixo.\n");
+    } else {
+        printf("Concavidade: A função não é uma parábola.\n");
+    }
+}
+
+// Função para calcular o delta (discriminante)
+float calcularDelta(float a, float b, float c) {
+    return b * b - 4 * a * c;
+}
+
+// Função para determinar os tipos de raízes
+void tiposRaizes(float delta) {
+    if (delta > 0) {
+        printf("Tipos de raízes: Duas raízes reais e distintas.\n");
+    } else if (delta == 0) {
+        printf("Tipos de raízes: Uma raiz real e dupla.\n");
+    } else {
+        printf("Tipos de raízes: Nenhuma raiz real (raízes complexas).\n");
+    }
+}
+
+// Função para calcular e exibir as raízes usando a fórmula de Bhaskara
+void calcularRaizes(float a, float b, float delta) {
+    if (delta >= 0) {
+        float raiz1 = (-b + sqrt(delta)) / (2 * a);
+        float raiz2 = (-b - sqrt(delta)) / (2 * a);
+        printf("Raízes: R1 = %.2f, R2 = %.2f\n", raiz1, raiz2);
+    }
+}
+
+// Função para calcular e exibir o vértice da parábola
+void calcularVertice(float a, float b, float c) {
+    float x_v = -b / (2 * a);
+    float y_v = -calcularDelta(a, b, c) / (4 * a);
+    printf("Vértice: (%.2f, %.2f)\n", x_v, y_v);
+}
+
+// Função para exibir f(x) para x variando de -10 a 10
+void exibirValores(float a, float b, float c) {
+    printf("Valores de f(x) para x variando de -10 a 10:\n");
+    for (int x = -10; x <= 10; x++) {
+        float fx = a * x * x + b * x + c;
+        printf("f(%d) = %.2f\n", x, fx);
+    }
+}
+
+int main() {
+    float a, b, c;
+
+    while (1) {
+        printf("Digite os coeficientes a, b e c (Digite 0 para a para encerrar):\n");
+        scanf("%f %f %f", &a, &b, &c);
+
+        if (a == 0) {
+            break; // Encerra o programa se a = 0
+        }
+
+        verificarConcavidade(a);
+
+        float delta = calcularDelta(a, b, c);
+        printf("Delta: %.2f\n", delta);
+
+        tiposRaizes(delta);
+        calcularRaizes(a, b, delta);
+
+        calcularVertice(a, b, c);
+        exibirValores(a, b, c);
+    }
+
+    return 0;
+}
